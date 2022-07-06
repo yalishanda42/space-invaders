@@ -17,10 +17,8 @@ Pseudocode:
         * Store the transition $(s_t, a_t, r_t, s_{t+1})$ in $D$
         * Sample random minibatch of transitions $(s_j , a_j , r_j , s_{j+1})$ from $D$
         * Assign 
-$$y_j = \begin{cases}
-            r_j & \text{for a terminal } s_{j+1} \\
-            r_j + \gamma \max_{a'} Q^*(s_{j+1}, a'; \theta) & \text{for a non-terminal } s_{j+1}
-            \end{cases}$$
+$y_j = r_j$ for a terminal $s_{j+1}$ or $y_j = r_j + \gamma \max_{a'} Q^*(s_{j+1}, a'; \theta)$ for a non-terminal $s_{j+1}$
+
         * Perform a gradient descent step on $(y_j − Q(s_j, a_j; \theta))^2$:
 $$\nabla_{\theta_i}L_i(\theta_i) = E_{s,a \sim p(·); s' \sim \epsilon} [(r + \gamma\max_a'Q(s', a'; \theta_{i-1}) - Q(s, a, \theta_i))\nabla_{\theta_i}Q(s, a; \theta_i)]$$
 $$L_i(\theta_i) = E_{s,a \sim p(·)}[(y_i - Q(s, a; \theta_i))^2]$$
